@@ -1,10 +1,28 @@
+import { useMemo, useState } from 'react';
+import React, { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Home from './components/pages/Home';
+import Login from './components/pages/Login';
+import Registration from './components/pages/Registration';
+import AppContext from './hooks/AppContext';
 
-function App() {
+function App(): JSX.Element {
+  const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
+  const providerData = useMemo(() => ({
+    token, user,
+  }), [token, user]);
+
   return (
-    <div>
-      <h1 className="text-3xl text-center my-5">Lost animals</h1>
-    </div>
+    <AppContext.Provider
+      value={providerData}
+    >
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Registration />} />
+      </Routes>
+    </AppContext.Provider>
   );
 }
 
