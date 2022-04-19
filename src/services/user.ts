@@ -1,19 +1,32 @@
 import { HOST } from '../utils/constants/host';
 import { UserType } from '../utils/types/user';
 
+export const getMe = async (token: string): Promise<UserType> => {
+  const userResponse = await fetch(`${HOST}/users/me`, {
+    headers: new Headers({
+      'Content-Type': 'application/json+ld',
+      Authorization: `Bearer ${token}`,
+    }),
+  });
+  return userResponse.json();
+};
+
 export const login = (
   username: string,
   password: string,
   handleToken: ((tokenValue: string) => void) | undefined,
+  handleUser: ((userValue: UserType) => void) | undefined,
 ) : void => {
   fetch(`${HOST}/authentication_token`, {
     method: 'POST',
     body: JSON.stringify({ username, password }),
     headers: new Headers({ 'Content-Type': 'application/json' }),
   }).then((response) => response.json())
-    .then((data) => {
-      if (Object.keys(data).includes('token') && handleToken !== undefined) {
+    .then(async (data) => {
+      if (Object.keys(data).includes('token') && handleToken && handleUser) {
         handleToken(data.token);
+        const me = await getMe(data.token);
+        handleUser(me);
       } else {
         alert('invalid credentials');
       }
@@ -39,8 +52,7 @@ export const register = (
       }
 
       if (data['@context'] === '/contexts/User' && handleUser) {
-        handleUser(data);
-        login(username, password, handleToken);
+        login(username, password, handleToken, handleUser);
       }
     }).catch((error) => {
       console.log(error);

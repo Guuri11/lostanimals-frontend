@@ -6,7 +6,9 @@ import { login } from '../../services/user';
 export default function Login() : JSX.Element {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const { handleToken, token, navigate } = useAppContext();
+  const {
+    handleToken, token, navigate, handleUser,
+  } = useAppContext();
 
   useEffect(() => {
     if (token !== '' && navigate) {
@@ -14,7 +16,7 @@ export default function Login() : JSX.Element {
     }
   }, [token, navigate]);
   const handleSubmit = ():void => {
-    login(username, password, handleToken);
+    login(username, password, handleToken, handleUser);
   };
 
   return (
