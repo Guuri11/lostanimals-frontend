@@ -46,3 +46,14 @@ export const register = (
       console.log(error);
     });
 };
+
+export const checkToken = async (token: string): Promise<boolean> => (async () => {
+  const result = await fetch(HOST, {
+    headers: new Headers({
+      'Content-Type': 'application/json+ld',
+      Authorization: `Bearer ${token}`,
+    }),
+  });
+
+  return result.status === 200;
+})();
