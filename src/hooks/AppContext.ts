@@ -5,7 +5,7 @@ import { UserType } from '../utils/types/user';
 
 type AppProviderType = {
     token: string | null,
-    user: string,
+    user?: UserType,
     handleToken?: (tokenValue: string) => void,
     handleUser?: (UserValue: UserType) => void,
     navigate?: NavigateFunction
@@ -13,7 +13,6 @@ type AppProviderType = {
 
 export const AppContext = createContext({
   token: '',
-  user: '',
 });
 
 export const useAppContext = (): AppProviderType => useContext(AppContext);

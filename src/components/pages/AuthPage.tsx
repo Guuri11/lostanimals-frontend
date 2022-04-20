@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppContext } from '../../hooks/AppContext';
-import { checkToken } from '../../services/user';
+import { checkToken, getMe } from '../../services/user';
 
 type Props = {
     children: JSX.Element,
@@ -14,7 +14,9 @@ export default function AuthPage({ children }: Props) : JSX.Element | null {
       if (token === '') {
         navigate('/login');
       } else if (typeof token === 'string') {
-        checkToken(token).then((valid) => setIsValid(valid));
+        checkToken(token).then((valid) => {
+          getMe(token).then((me) => setIsValid(valid && me !== null));
+        });
       }
     }
   }, [navigate, token]);
