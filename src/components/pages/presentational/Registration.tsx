@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAppContext } from '../../hooks/AppContext';
-import { register } from '../../services/user';
 
-export default function Registration() : JSX.Element {
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const { handleToken, handleUser } = useAppContext();
+type Props = {
+  setUsername: React.Dispatch<React.SetStateAction<string>>
+  setPassword: React.Dispatch<React.SetStateAction<string>>,
+  handleSubmit: () => void
+}
 
-  const handleSubmit = ():void => {
-    register(username, password, handleToken, handleUser);
-  };
-
+export default function RegistrationPresentational(
+  { setUsername, setPassword, handleSubmit }: Props,
+) : JSX.Element {
   return (
     <div className="text-center my-5">
       <h2>Registration</h2>

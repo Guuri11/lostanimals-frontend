@@ -1,24 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAppContext } from '../../hooks/AppContext';
-import { login } from '../../services/user';
 
-export default function Login() : JSX.Element {
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const {
-    handleToken, token, navigate, handleUser,
-  } = useAppContext();
-
-  useEffect(() => {
-    if (token !== '' && navigate) {
-      navigate('/');
-    }
-  }, [token, navigate]);
-  const handleSubmit = ():void => {
-    login(username, password, handleToken, handleUser);
-  };
-
+type Props = {
+  setUsername: React.Dispatch<React.SetStateAction<string>>
+  setPassword: React.Dispatch<React.SetStateAction<string>>,
+  handleSubmit: () => void
+}
+export default function LoginPresentational(
+  { setUsername, setPassword, handleSubmit }: Props,
+) : JSX.Element {
   return (
     <div className="text-center my-5">
       <h2>Login</h2>
