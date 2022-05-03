@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppContext } from '../../hooks/AppContext';
 import { checkToken, getMe } from '../../services/user';
+import Layout from '../elements/Layout';
 
 type Props = {
-    children: JSX.Element,
+    children: JSX.Element | null,
 };
 
 export default function AuthPage({ children }: Props) : JSX.Element | null {
@@ -21,9 +22,11 @@ export default function AuthPage({ children }: Props) : JSX.Element | null {
     }
   }, [navigate, token]);
 
-  if (isValid) {
+  if (isValid && children) {
     return (
-      children
+      <Layout>
+        {children}
+      </Layout>
     );
   }
   return null;
