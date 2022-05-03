@@ -2,6 +2,8 @@ import { useMemo, useState } from 'react';
 import React, { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import Home from './components/pages/container/AuthPage/Home';
+import Form from './components/pages/container/AuthPage/Post/Form';
+import Post from './components/pages/container/AuthPage/Post/Post';
 import Profile from './components/pages/container/AuthPage/Profile';
 import Login from './components/pages/container/Login';
 import Registration from './components/pages/container/Registration';
@@ -34,6 +36,9 @@ function App(): JSX.Element {
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
+        <Route path="/post/:id" element={<Post />} />
+        <Route path="/post/new" element={<Form />} />
+        <Route path="/post/edit/:id" element={<Form />} />
       </Routes>
     </AppContext.Provider>
   );
