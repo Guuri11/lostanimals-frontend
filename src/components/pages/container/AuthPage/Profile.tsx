@@ -7,7 +7,7 @@ export default function Profile() : JSX.Element {
   const { user } = useAppContext();
   return (
     <AuthPage>
-      <ProfilePresentational />
+      {user ? <ProfilePresentational /> : null }
     </AuthPage>
   );
 }

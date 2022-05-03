@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useAppContext } from '../../../hooks/AppContext';
 import { register } from '../../../services/user';
 import RegistrationPresentational from '../presentational/Registration';
