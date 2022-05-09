@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
 import React, { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
-import Home from './components/pages/container/AuthPage/Home';
-import Form from './components/pages/container/AuthPage/Post/Form';
-import Post from './components/pages/container/AuthPage/Post/Post';
-import Profile from './components/pages/container/AuthPage/Profile';
-import Login from './components/pages/container/Login';
-import Registration from './components/pages/container/Registration';
+import Home from './components/pages/AuthPage/Home/HomeContainer';
+import Form from './components/pages/AuthPage/Post/FormContainer';
+import Post from './components/pages/AuthPage/Post/PostContainer';
+import Profile from './components/pages/AuthPage/Profile/ProfileContainer';
+import Login from './components/pages/Login/LoginContainer';
+import Registration from './components/pages/Registration/RegistrationContainer';
 import AppContext from './hooks/AppContext';
 import { UserType } from './utils/types/user';
 
