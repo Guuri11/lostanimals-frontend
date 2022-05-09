@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppContext } from '../../../hooks/AppContext';
 import { login } from '../../../services/user';
-import LoginPresentational from '../presentational/Login';
+import LoginPresentational from './LoginPresentational';
 
 export default function Login() : JSX.Element {
   const [username, setUsername] = useState<string>('');

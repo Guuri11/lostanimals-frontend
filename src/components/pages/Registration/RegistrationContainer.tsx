@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../../../hooks/AppContext';
 import { register } from '../../../services/user';
-import RegistrationPresentational from '../presentational/Registration';
+import RegistrationPresentational from './RegistrationPresentational';
 
 export default function Registration() : JSX.Element {
   const [username, setUsername] = useState<string>('');

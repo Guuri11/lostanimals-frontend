@@ -1,6 +1,6 @@
 import React from 'react';
-import AuthPage from '../../../AuthPage';
-import PostPresentational from '../../../presentational/AuthPage/Post/Post';
+import AuthPage from '../../AuthPage';
+import PostPresentational from './PostPresentational';
 
 export default function Post() : JSX.Element {
   return (
