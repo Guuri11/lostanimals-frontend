@@ -5,9 +5,9 @@ import { UserType } from '../utils/types/user';
 
 type AppProviderType = {
     token: string | null,
-    user?: UserType,
+    user?: UserType | null,
     handleToken?: (tokenValue: string) => void,
-    handleUser?: (UserValue: UserType) => void,
+    handleUser?: (UserValue: UserType | null) => void,
     navigate?: NavigateFunction
 }
 
