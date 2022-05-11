@@ -3,7 +3,6 @@ import React, { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import Home from './components/pages/AuthPage/Home/HomeContainer';
 import Form from './components/pages/AuthPage/Post/FormContainer';
-import Post from './components/pages/AuthPage/Post/PostContainer';
 import Profile from './components/pages/AuthPage/Profile/ProfileContainer';
 import Login from './components/pages/Login/LoginContainer';
 import Registration from './components/pages/Registration/RegistrationContainer';
@@ -36,7 +35,6 @@ function App(): JSX.Element {
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
-        <Route path="/post/:id" element={<Post />} />
         <Route path="/post/new" element={<Form />} />
         <Route path="/post/edit/:id" element={<Form />} />
       </Routes>
