@@ -12,6 +12,8 @@ import { UserType } from './utils/types/user';
 function App(): JSX.Element {
   const [token, setToken] = useState('');
   const [user, setUser] = useState<UserType | null>(null);
+  const [addPost, setAddPost] = useState(false);
+  const [refreshControl, setRefreshControl] = useState(false);
   const navigate = useNavigate();
 
   const handleToken = (tokenValue: string):void => {
@@ -22,9 +24,26 @@ function App(): JSX.Element {
     setUser(userValue);
   };
 
-  const providerData = useMemo(() => ({
-    token, user, handleToken, handleUser, navigate,
-  }), [token, user, navigate]);
+  const providerData = useMemo(() => {
+    const handleAddPost = ():void => {
+      setAddPost(!addPost);
+    };
+    const handleRefreshControl = ():void => {
+      setRefreshControl(!refreshControl);
+    };
+
+    return {
+      token,
+      user,
+      handleToken,
+      handleUser,
+      navigate,
+      addPost,
+      handleAddPost,
+      handleRefreshControl,
+      refreshControl,
+    };
+  }, [token, user, navigate, addPost, refreshControl]);
 
   return (
     <AppContext.Provider
