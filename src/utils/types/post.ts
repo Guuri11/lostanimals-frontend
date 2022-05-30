@@ -9,6 +9,7 @@ export type PostType = {
   state: boolean;
   location: string;
   image: string;
+  imageUrl: string;
   owner: UserType;
   created_at: string;
   updated_at: string;
