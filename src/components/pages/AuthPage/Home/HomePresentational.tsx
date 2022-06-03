@@ -1,13 +1,21 @@
 import React from 'react';
-import { posts } from '../../../../utils/types/dummy/post';
+import { PostType } from '../../../../utils/types/post';
 import FloatButton from '../../../elements/FloatButton';
 import Post from '../../../elements/Post/Post';
 import PostFilter from '../../../elements/Post/PostFilter';
+import PostTemplate from '../../../elements/Post/PostTemplate/PostTemplateContainer';
 import { PostFilterProps } from './HomeContainer';
 
+type Props = {
+  posts: Array<PostType>;
+  showNoPostsNear: boolean;
+  handleAddPost: () => void;
+  addPost: boolean;
+}
+
 export default function HomePresentational({
-  register, handleSubmit, errors, onSubmit, watch,
-}: PostFilterProps): JSX.Element {
+  register, handleSubmit, errors, onSubmit, watch, posts, showNoPostsNear, handleAddPost, addPost,
+}: PostFilterProps & Props): JSX.Element {
   return (
     <div className="md:flex">
       <div className="md:w-[33%] md:pr-3 mb-3">
@@ -21,10 +29,16 @@ export default function HomePresentational({
       </div>
       <div className="flex justify-center">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          { addPost ? <PostTemplate /> : null }
           { posts.map((post) => <Post key={post['@id']} post={post} />) }
+          { showNoPostsNear && (
+          <div>
+            <h1>No posts near</h1>
+          </div>
+          ) }
         </div>
       </div>
-      <FloatButton />
+      <FloatButton handleAddPost={handleAddPost} />
     </div>
   );
 }
