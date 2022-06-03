@@ -4,7 +4,7 @@ import { UserType } from '../utils/types/user';
 export const getMe = async (token: string): Promise<UserType> => {
   const userResponse = await fetch(`${HOST}/users/me`, {
     headers: new Headers({
-      'Content-Type': 'application/json+ld',
+      'Content-Type': 'application/ld+json',
       Authorization: `Bearer ${token}`,
     }),
   });
@@ -62,7 +62,7 @@ export const register = (
 export const checkToken = async (token: string): Promise<boolean> => (async () => {
   const result = await fetch(HOST, {
     headers: new Headers({
-      'Content-Type': 'application/json+ld',
+      'Content-Type': 'application/ld+json',
       Authorization: `Bearer ${token}`,
     }),
   });
