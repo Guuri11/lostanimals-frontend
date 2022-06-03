@@ -1,23 +1,78 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import {
+  useForm, FieldError, SubmitHandler, UseFormHandleSubmit, UseFormRegister,
+} from 'react-hook-form';
+import { useAppContext } from '../../../hooks/AppContext';
+import { deletePost, PostUpdate, updatePost } from '../../../services/post';
 import { PostType } from '../../../utils/types/post';
+import PostPresentational from './PostPresentational';
 
 type Props = {
   post: PostType
 }
 
+export type PostFilterProps = {
+  register: UseFormRegister<PostUpdate>;
+  handleSubmit: UseFormHandleSubmit<PostUpdate>;
+  errors: {
+      description?: FieldError | undefined;
+      location?: FieldError | undefined;
+      type?: FieldError | undefined;
+      state?: FieldError | undefined;
+  };
+  onSubmit: SubmitHandler<PostUpdate>;
+}
+
 export default function Post({ post }:Props): JSX.Element {
+  const { user, token, handleRefreshControl } = useAppContext();
+  const [isOwner] = useState<boolean>(user?.['@id'] === post.owner['@id']);
+  const [editView, setEditView] = useState(false);
+  const [postUpdated, setPostUpdated] = useState<PostType|null>(null);
+
+  const {
+    register, handleSubmit, formState: { errors },
+  } = useForm<PostUpdate>();
+  const onSubmit: SubmitHandler<PostUpdate> = (data) => {
+    if (token) {
+      updatePost(token, post['@id'], data).then((response) => {
+        if (response['@id']) {
+          setEditView(false);
+          setPostUpdated(response);
+        } else {
+          console.log('error');
+        }
+      });
+    }
+  };
+
+  const handleEditView = ():void => setEditView(!editView);
+
+  const handleDelete = ():void => {
+    // eslint-disable-next-line no-restricted-globals
+    const ans = confirm('Are you sure you want to delete this post?');
+
+    if (ans && token && handleRefreshControl) {
+      deletePost(token, post['@id']).then((response) => {
+        if (response === 204) {
+          handleRefreshControl();
+        } else {
+          alert('could not delete the post');
+        }
+      });
+    }
+  };
+
   return (
-    <div className="max-w-sm bg-white relative rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-      <div className={`absolute right-3 px-4 rounded top-3 text-white ${post.type === 'LOST' ? 'bg-red' : 'bg-green'}`}>{post.type}</div>
-      <img className="rounded-t-lg w-full" src={post.image} alt="" />
-      <div className="p-5">
-        <p className="mb-2 text-xl font-bold tracking-tight text-gray-900">{post.description}</p>
-        <p>{post.owner.username}</p>
-        <p className="text-xs">{post.created_at}</p>
-        <p className="text-xs">{post.location}</p>
-        <p className="text-xs">{post.state ? 'State: 0' : 'State: 1'}</p>
-      </div>
-    </div>
+    <PostPresentational
+      handleDelete={handleDelete}
+      post={postUpdated || post}
+      isOwner={isOwner}
+      editView={editView}
+      handleEditView={handleEditView}
+      register={register}
+      handleSubmit={handleSubmit}
+      errors={errors}
+      onSubmit={onSubmit}
+    />
   );
 }
