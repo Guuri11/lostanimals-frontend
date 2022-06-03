@@ -1,33 +1,37 @@
 import React from 'react';
 import { PostType } from '../../../../utils/types/post';
-import { UserType } from '../../../../utils/types/user';
 import FloatButton from '../../../elements/FloatButton';
 import Post from '../../../elements/Post/Post';
+import PostFilter from '../../../elements/Post/PostFilter';
+import PostTemplate from '../../../elements/Post/PostTemplate/PostTemplateContainer';
+import { PostFilterProps } from './HomeContainer';
 
 type Props = {
-  user: UserType;
   posts: Array<PostType>;
-  showNoPosts: boolean;
+  showNoPostsNear: boolean;
   handleAddPost: () => void;
   addPost: boolean;
 }
 
-export default function ProfilePresentational({
-  user, posts, showNoPosts, handleAddPost, addPost,
-}: Props) : JSX.Element {
+export default function HomePresentational({
+  register, handleSubmit, errors, onSubmit, watch, posts, showNoPostsNear, handleAddPost, addPost,
+}: PostFilterProps & Props): JSX.Element {
   return (
     <div className="md:flex">
       <div className="md:w-[33%] md:pr-3 mb-3">
-        { user.image && (
-          <img src={user.image} alt={user.username} />
-        ) }
-        <h1 className="font-bold uppercase">{user.username}</h1>
+        <PostFilter
+          register={register}
+          handleSubmit={handleSubmit}
+          errors={errors}
+          onSubmit={onSubmit}
+          watch={watch}
+        />
       </div>
       <div className="flex justify-center">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          { addPost ? <div>hola</div> : null }
+          { addPost ? <PostTemplate /> : null }
           { posts.map((post) => <Post key={post['@id']} post={post} />) }
-          { showNoPosts && (
+          { showNoPostsNear && (
           <div>
             <h1>No posts near</h1>
           </div>

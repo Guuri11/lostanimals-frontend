@@ -8,11 +8,17 @@ type AppProviderType = {
     user?: UserType | null,
     handleToken?: (tokenValue: string) => void,
     handleUser?: (UserValue: UserType | null) => void,
-    navigate?: NavigateFunction
+    navigate?: NavigateFunction,
+    addPost: boolean,
+    handleAddPost?: () => void,
+    refreshControl: boolean,
+    handleRefreshControl?: () => void
 }
 
 export const AppContext = createContext({
   token: '',
+  addPost: false,
+  refreshControl: false,
 });
 
 export const useAppContext = (): AppProviderType => useContext(AppContext);
