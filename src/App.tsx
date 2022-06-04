@@ -11,8 +11,9 @@ import { UserType } from './utils/types/user';
 
 function App(): JSX.Element {
   const [token, setToken] = useState('');
-  const [user, setUser] = useState<UserType | null>(null);
+  const [user, setUser] = useState<UserType | null>();
   const [addPost, setAddPost] = useState(false);
+  const [coords, setCoords] = useState({ latitude: 0, longitude: 0 });
   const [refreshControl, setRefreshControl] = useState(false);
   const navigate = useNavigate();
 
@@ -32,6 +33,12 @@ function App(): JSX.Element {
       setRefreshControl(!refreshControl);
     };
 
+    const handleCoords = ():void => {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setCoords({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+      });
+    };
+
     return {
       token,
       user,
@@ -42,8 +49,10 @@ function App(): JSX.Element {
       handleAddPost,
       handleRefreshControl,
       refreshControl,
+      handleCoords,
+      coords,
     };
-  }, [token, user, navigate, addPost, refreshControl]);
+  }, [token, user, navigate, addPost, refreshControl, coords]);
 
   return (
     <AppContext.Provider
