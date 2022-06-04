@@ -46,7 +46,7 @@ export default function Home() : JSX.Element {
       handleCoords();
     }
 
-    let params = `?radius=${data.radio}&latitude=${coords.latitude}&longitude=${coords.longitude}`;
+    let params = '?';
 
     if (data.owner !== '') {
       params += `&owner.username=${data.owner}`;
