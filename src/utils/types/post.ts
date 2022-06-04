@@ -7,7 +7,8 @@ export type PostType = {
   description: string;
   type: 'LOST' | 'FOUND';
   state: boolean;
-  location: string;
+  latitude: number;
+  longitude: number;
   image: string;
   imageUrl: string;
   owner: UserType;

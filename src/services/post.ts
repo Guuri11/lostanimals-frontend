@@ -16,7 +16,11 @@ export type PostUpdate = {
   type: string;
   description: string;
   state: boolean;
-  location: string;
+}
+
+export type Coords = {
+  latitude: number;
+  longitude: number;
 }
 
 export const getPosts = async (token: string, params: string): Promise<Posts> => {
@@ -42,7 +46,7 @@ export const updatePost = async (token: string, id: string, post: PostUpdate)
   return postsResponse.json();
 };
 
-export const createPost = async (token: string, user: UserType, post: PostCreate)
+export const createPost = async (token: string, user: UserType, post: PostCreate, coords: Coords)
 : Promise<PostType> => {
   const { image } = post;
   const data = new FormData();
@@ -64,7 +68,8 @@ export const createPost = async (token: string, user: UserType, post: PostCreate
       description: post.description,
       type: post.type,
       state: post.state,
-      location: post.location,
+      latitude: coords.latitude,
+      longitude: coords.longitude,
       owner: user['@id'],
       image: imageResult['@id'],
     };

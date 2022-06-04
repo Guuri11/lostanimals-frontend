@@ -12,13 +12,16 @@ type AppProviderType = {
     addPost: boolean,
     handleAddPost?: () => void,
     refreshControl: boolean,
-    handleRefreshControl?: () => void
+    handleRefreshControl?: () => void,
+    coords: { latitude: number, longitude: number},
+    handleCoords?: () => void
 }
 
 export const AppContext = createContext({
   token: '',
   addPost: false,
   refreshControl: false,
+  coords: { latitude: 0, longitude: 0 },
 });
 
 export const useAppContext = (): AppProviderType => useContext(AppContext);

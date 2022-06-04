@@ -16,7 +16,6 @@ export type PostFilterProps = {
   handleSubmit: UseFormHandleSubmit<PostUpdate>;
   errors: {
       description?: FieldError | undefined;
-      location?: FieldError | undefined;
       type?: FieldError | undefined;
       state?: FieldError | undefined;
   };

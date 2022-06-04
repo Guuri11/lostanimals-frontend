@@ -32,7 +32,7 @@ export type PostFilterProps = {
 
 export default function Home() : JSX.Element {
   const {
-    token, handleAddPost, addPost, refreshControl,
+    token, handleAddPost, addPost, refreshControl, coords, handleCoords,
   } = useAppContext();
   const [posts, setPosts] = useState<Array<PostType>>([]);
   const [filterParams, setFilterParams] = useState('');
@@ -42,39 +42,25 @@ export default function Home() : JSX.Element {
     register, handleSubmit, watch, formState: { errors },
   } = useForm<PostFilterInputs>();
   const onSubmit: SubmitHandler<PostFilterInputs> = (data) => {
-    let params = `?radio_poc=${data.radio}`;
-
-    if (data.endDate !== '') {
-      params += `&created_at[before]=${data.endDate}`;
+    if (handleCoords) {
+      handleCoords();
     }
+
+    let params = `?radius=${data.radio}&latitude=${coords.latitude}&longitude=${coords.longitude}`;
+
     if (data.owner !== '') {
       params += `&owner.username=${data.owner}`;
-    }
-    if (data.startDate !== '') {
-      params += `&created_at[after]=${data.startDate}`;
     }
     if (data.type) {
       params += `&type=${data.type}`;
     }
-
+    setPosts([]);
     setFilterParams(params);
   };
 
   useEffect(() => {
-    if (token) {
-      /*
-      if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          console.log(position);
-        }, (error) => {
-          console.log(error);
-        });
-      } else {
-        console.log('Not Available');
-      }
-      */
-
-      getPosts(token, filterParams).then((response) => {
+    if (token && coords) {
+      getPosts(token, filterParams || `?radius=${150}&longitude=${coords.longitude}&latitude=${coords.latitude}`).then((response) => {
         if (response['hydra:totalItems'] > 0) {
           setPosts(response['hydra:member']);
           setShowNoPostsNear(false);
@@ -83,7 +69,7 @@ export default function Home() : JSX.Element {
         }
       });
     }
-  }, [token, filterParams, refreshControl]);
+  }, [token, filterParams, refreshControl, coords]);
 
   return (
     <AuthPage>

@@ -11,7 +11,6 @@ export type PostCreate = {
   type: string;
   description: string;
   state: boolean;
-  location: string;
 }
 
 export type PostFilterProps = {
@@ -19,7 +18,6 @@ export type PostFilterProps = {
   handleSubmit: UseFormHandleSubmit<PostCreate>;
   errors: {
       description?: FieldError | undefined;
-      location?: FieldError | undefined;
       type?: FieldError | undefined;
       state?: FieldError | undefined;
   };
@@ -27,15 +25,17 @@ export type PostFilterProps = {
 }
 
 export default function PostTemplate(): JSX.Element {
-  const { user, token } = useAppContext();
+  const {
+    user, token, handleRefreshControl, coords,
+  } = useAppContext();
 
   const {
     register, handleSubmit, formState: { errors },
   } = useForm<PostCreate>();
   const onSubmit: SubmitHandler<PostCreate> = (data) => {
-    if (token && user) {
-      createPost(token, user, data).then((response) => {
-        console.log(response);
+    if (token && user && handleRefreshControl && coords) {
+      createPost(token, user, data, coords).then(() => {
+        handleRefreshControl();
       });
     }
   };
