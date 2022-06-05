@@ -45,7 +45,7 @@ export default function LoginPresentational(
             </div>
             <div className="mt-8">
               <button type="button" onClick={handleSubmit} aria-label="create my account" className="focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 text-sm font-semibold leading-none text-white focus:outline-none bg-yellow-400 border rounded hover:bg-yellow-600 py-4 w-full">
-                Create my account
+                Sign in
               </button>
             </div>
           </div>
