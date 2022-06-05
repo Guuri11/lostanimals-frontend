@@ -1,6 +1,7 @@
 import React from 'react';
 import { PostType } from '../../../../utils/types/post';
 import FloatButton from '../../../elements/FloatButton';
+import { Map } from '../../../elements/Map/Map';
 import Post from '../../../elements/Post/Post';
 import PostFilter from '../../../elements/Post/PostFilter';
 import PostTemplate from '../../../elements/Post/PostTemplate/PostTemplateContainer';
@@ -19,6 +20,9 @@ export default function HomePresentational({
   return (
     <div className="md:flex">
       <div className="md:w-[33%] md:pr-3 mb-3">
+        <div className="mb-2">
+          <Map posts={posts} />
+        </div>
         <PostFilter
           register={register}
           handleSubmit={handleSubmit}
