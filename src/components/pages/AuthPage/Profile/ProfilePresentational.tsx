@@ -3,6 +3,7 @@ import { PostType } from '../../../../utils/types/post';
 import { UserType } from '../../../../utils/types/user';
 import FloatButton from '../../../elements/FloatButton';
 import Post from '../../../elements/Post/Post';
+import PostTemplate from '../../../elements/Post/PostTemplate/PostTemplateContainer';
 
 type Props = {
   user: UserType;
@@ -25,7 +26,7 @@ export default function ProfilePresentational({
       </div>
       <div className="flex justify-center">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          { addPost ? <div>hola</div> : null }
+          { addPost ? <PostTemplate /> : null }
           { posts.map((post) => <Post key={post['@id']} post={post} />) }
           { showNoPosts && (
           <div>
