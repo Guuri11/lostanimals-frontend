@@ -3,7 +3,7 @@ import { Alert } from 'flowbite-react';
 import { useAppContext } from '../../../hooks/AppContext';
 
 export default function AlertMissage(): JSX.Element | null {
-  const { alertText, alertColor } = useAppContext();
+  const { alertText, alertColor, handleAlert } = useAppContext();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -12,8 +12,23 @@ export default function AlertMissage(): JSX.Element | null {
     }
   }, [alertText, alertColor]);
 
+  useEffect(() => {
+    if (show) {
+      const timeout = setTimeout(() => {
+        setShow(false);
+        if (handleAlert) {
+          handleAlert('', 'blue');
+        }
+      }, 4000);
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+    return undefined;
+  }, [handleAlert, show]);
+
   return (
-    show ? (
+    show && alertText && alertColor ? (
       <div className="absolute left-1/2 transform -translate-x-1/2 w-1/2">
         <Alert
           color={alertColor}
