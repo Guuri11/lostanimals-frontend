@@ -16,7 +16,7 @@ function App(): JSX.Element {
   const [coords, setCoords] = useState({ latitude: 0, longitude: 0 });
   const [refreshControl, setRefreshControl] = useState(false);
   const navigate = useNavigate();
-  const [alertText, setAlertText] = useState('hola mundo');
+  const [alertText, setAlertText] = useState('');
   const [alertColor, setAlertColor] = useState<'blue' | 'red' | 'green' | 'yellow' | 'gray'>('blue');
 
   const handleToken = (tokenValue: string):void => {

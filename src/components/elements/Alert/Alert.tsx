@@ -4,7 +4,7 @@ import { useAppContext } from '../../../hooks/AppContext';
 
 export default function AlertMissage(): JSX.Element | null {
   const { alertText, alertColor } = useAppContext();
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (alertText && alertColor) {
