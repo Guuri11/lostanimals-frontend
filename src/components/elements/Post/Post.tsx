@@ -23,7 +23,9 @@ export type PostFilterProps = {
 }
 
 export default function Post({ post }:Props): JSX.Element {
-  const { user, token, handleRefreshControl } = useAppContext();
+  const {
+    user, token, handleRefreshControl, handleAlert,
+  } = useAppContext();
   const [isOwner] = useState<boolean>(user?.['@id'] === post.owner['@id']);
   const [editView, setEditView] = useState(false);
   const [postUpdated, setPostUpdated] = useState<PostType|null>(null);
@@ -37,8 +39,8 @@ export default function Post({ post }:Props): JSX.Element {
         if (response['@id']) {
           setEditView(false);
           setPostUpdated(response);
-        } else {
-          console.log('error');
+        } else if (handleAlert) {
+          handleAlert('Error on update post', 'red');
         }
       });
     }
@@ -54,8 +56,8 @@ export default function Post({ post }:Props): JSX.Element {
       deletePost(token, post['@id']).then((response) => {
         if (response === 204) {
           handleRefreshControl();
-        } else {
-          alert('could not delete the post');
+        } else if (handleAlert) {
+          handleAlert('Could not update the post', 'red');
         }
       });
     }

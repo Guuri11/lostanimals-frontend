@@ -16,6 +16,8 @@ function App(): JSX.Element {
   const [coords, setCoords] = useState({ latitude: 0, longitude: 0 });
   const [refreshControl, setRefreshControl] = useState(false);
   const navigate = useNavigate();
+  const [alertText, setAlertText] = useState('hola mundo');
+  const [alertColor, setAlertColor] = useState<'blue' | 'red' | 'green' | 'yellow' | 'gray'>('blue');
 
   const handleToken = (tokenValue: string):void => {
     setToken(tokenValue);
@@ -23,6 +25,11 @@ function App(): JSX.Element {
 
   const handleUser = (userValue: UserType | null):void => {
     setUser(userValue);
+  };
+
+  const handleAlert = (text:string, color:'blue' | 'red' | 'green' | 'yellow' | 'gray'):void => {
+    setAlertText(text);
+    setAlertColor(color);
   };
 
   const providerData = useMemo(() => {
@@ -51,8 +58,11 @@ function App(): JSX.Element {
       refreshControl,
       handleCoords,
       coords,
+      alertText,
+      alertColor,
+      handleAlert,
     };
-  }, [token, user, navigate, addPost, refreshControl, coords]);
+  }, [token, user, navigate, addPost, refreshControl, coords, alertText, alertColor]);
 
   return (
     <AppContext.Provider

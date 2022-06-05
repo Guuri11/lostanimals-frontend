@@ -7,7 +7,7 @@ export default function Login() : JSX.Element {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const {
-    handleToken, token, navigate, handleUser,
+    handleToken, token, navigate, handleUser, handleAlert,
   } = useAppContext();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function Login() : JSX.Element {
     }
   }, [token, navigate]);
   const handleSubmit = ():void => {
-    login(username, password, handleToken, handleUser);
+    login(username, password, handleToken, handleUser, handleAlert);
   };
 
   return (

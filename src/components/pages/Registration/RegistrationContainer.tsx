@@ -6,10 +6,10 @@ import RegistrationPresentational from './RegistrationPresentational';
 export default function Registration() : JSX.Element {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const { handleToken, handleUser } = useAppContext();
+  const { handleToken, handleUser, handleAlert } = useAppContext();
 
   const handleSubmit = ():void => {
-    register(username, password, handleToken, handleUser);
+    register(username, password, handleToken, handleUser, handleAlert);
   };
 
   return (

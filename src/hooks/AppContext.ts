@@ -14,7 +14,10 @@ type AppProviderType = {
     refreshControl: boolean,
     handleRefreshControl?: () => void,
     coords: { latitude: number, longitude: number},
-    handleCoords?: () => void
+    handleCoords?: () => void,
+    handleAlert?: (text:string, color:'blue' | 'red' | 'green' | 'yellow' | 'gray') => void,
+    alertColor?: 'blue' | 'red' | 'green' | 'yellow' | 'gray',
+    alertText?: string,
 }
 
 export const AppContext = createContext({

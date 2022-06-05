@@ -16,6 +16,7 @@ export const login = (
   password: string,
   handleToken: ((tokenValue: string) => void) | undefined,
   handleUser: ((userValue: UserType) => void) | undefined,
+  handleAlert: ((text: string, color: 'blue' | 'red' | 'green' | 'yellow' | 'gray') => void) | undefined,
 ) : void => {
   fetch(`${HOST}/authentication_token`, {
     method: 'POST',
@@ -27,11 +28,13 @@ export const login = (
         handleToken(data.token);
         const me = await getMe(data.token);
         handleUser(me);
-      } else {
-        alert('invalid credentials');
+      } else if (handleAlert) {
+        handleAlert('Invalid credentials', 'red');
       }
     }).catch((error) => {
-      console.log(error);
+      if (handleAlert) {
+        handleAlert(error, 'red');
+      }
     });
 };
 
@@ -40,6 +43,7 @@ export const register = (
   password: string,
   handleToken: ((tokenValue: string) => void) | undefined,
   handleUser: ((userValue: UserType) => void) | undefined,
+  handleAlert: ((text: string, color: 'blue' | 'red' | 'green' | 'yellow' | 'gray') => void) | undefined,
 ) : void => {
   fetch(`${HOST}/users`, {
     method: 'POST',
@@ -47,15 +51,17 @@ export const register = (
     headers: new Headers({ 'Content-Type': 'application/json' }),
   }).then((response) => response.json())
     .then((data) => {
-      if (data['@context'] === '/contexts/ConstraintViolationList') {
-        console.log('error');
+      if (data['@context'] === '/contexts/ConstraintViolationList' && handleAlert) {
+        handleAlert('Error on register', 'red');
       }
 
       if (data['@context'] === '/contexts/User' && handleUser) {
-        login(username, password, handleToken, handleUser);
+        login(username, password, handleToken, handleUser, handleAlert);
       }
     }).catch((error) => {
-      console.log(error);
+      if (handleAlert) {
+        handleAlert(error, 'red');
+      }
     });
 };
 

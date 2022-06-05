@@ -8,7 +8,9 @@ type Props = {
 };
 
 export default function AuthPage({ children }: Props) : JSX.Element | null {
-  const { token, navigate, handleCoords } = useAppContext();
+  const {
+    token, navigate, handleCoords, handleAlert,
+  } = useAppContext();
   const [isValid, setIsValid] = useState(false);
   useEffect(() => {
     if (navigate) {
@@ -23,16 +25,16 @@ export default function AuthPage({ children }: Props) : JSX.Element | null {
   }, [navigate, token]);
 
   useEffect(() => {
-    if ('geolocation' in navigator) {
+    if ('geolocation' in navigator && handleAlert) {
       navigator.geolocation.getCurrentPosition((position) => {
         if (position.coords && handleCoords) {
           handleCoords();
         }
       }, (error) => {
-        console.log(error);
+        handleAlert(error.message, 'red');
       });
-    } else {
-      console.log('Not Available');
+    } else if (handleAlert) {
+      handleAlert('Geolocation not available', 'red');
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
