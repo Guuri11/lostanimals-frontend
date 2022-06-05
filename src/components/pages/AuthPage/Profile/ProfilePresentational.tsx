@@ -30,7 +30,7 @@ export default function ProfilePresentational({
           { posts.map((post) => <Post key={post['@id']} post={post} />) }
           { showNoPosts && (
           <div>
-            <h1>No posts near</h1>
+            <h1>No posts</h1>
           </div>
           ) }
         </div>
