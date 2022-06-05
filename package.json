@@ -48,7 +48,7 @@
     "@types/tailwindcss": "^3.0.10",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
-    "autoprefixer": "^10.4.7",
+    "autoprefixer": "10.4.5",
     "eslint": "^8.13.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.26.0",
@@ -57,5 +57,8 @@
     "eslint-plugin-react-hooks": "^4.4.0",
     "postcss": "^8.4.13",
     "tailwindcss": "^3.0.24"
+  },
+  "resolutions": {
+    "autoprefixer": "10.4.5"
   }
 }
