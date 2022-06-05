@@ -5,7 +5,7 @@ import {
 import { useAppContext } from '../../../../hooks/AppContext';
 import { getPosts } from '../../../../services/post';
 import { PostType } from '../../../../utils/types/post';
-import AuthPage from '../../AuthPage';
+import AuthPage from '../AuthPage';
 import HomePresentational from './HomePresentational';
 
 export type PostFilterInputs = {

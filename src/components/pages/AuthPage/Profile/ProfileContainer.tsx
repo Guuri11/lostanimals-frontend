@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppContext } from '../../../../hooks/AppContext';
 import { getPosts } from '../../../../services/post';
 import { PostType } from '../../../../utils/types/post';
-import AuthPage from '../../AuthPage';
+import AuthPage from '../AuthPage';
 import ProfilePresentational from './ProfilePresentational';
 
 export default function Profile() : JSX.Element {

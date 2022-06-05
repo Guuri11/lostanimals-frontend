@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useAppContext } from '../../hooks/AppContext';
-import { checkToken, getMe } from '../../services/user';
-import Layout from '../elements/Layout';
+import { useAppContext } from '../../../hooks/AppContext';
+import { checkToken, getMe } from '../../../services/user';
+import Layout from '../../elements/Layout';
 
 type Props = {
     children: JSX.Element | null,
