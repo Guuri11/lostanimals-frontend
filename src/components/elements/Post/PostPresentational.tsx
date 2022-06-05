@@ -63,7 +63,7 @@ export default function PostPresentational({
           )
             : (
               <>
-                <p className="mb-2 text-xl font-bold tracking-tight text-gray-900 w-100">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores optio amet similique laudantium commodi id eveniet? Obcaecati voluptatum incidunt maiores, hic omnis at perferendis ducimus nulla voluptatem, ut, nesciunt harum?</p>
+                <p className="mb-2 text-xl font-bold tracking-tight text-gray-900 w-100">{post.description}</p>
                 <p>{post.owner.username}</p>
                 <p className="text-xs">{post.created_at}</p>
                 <p className="text-xs">{`${post.latitude}, ${post.longitude}`}</p>
