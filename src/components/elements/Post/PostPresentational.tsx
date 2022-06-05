@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-props-no-spreading */
+import { Button, Modal } from 'flowbite-react';
 import React from 'react';
 import { HOST } from '../../../utils/constants/host';
 import { PostType } from '../../../utils/types/post';
@@ -11,17 +12,21 @@ type Props = {
   editView: boolean,
   handleEditView: () => void,
   handleDelete: () => void,
+  showDeleteModal: boolean,
+  setShowDeleteModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function PostPresentational({
   post, isOwner, editView, handleEditView, handleDelete, register, handleSubmit, onSubmit,
+  showDeleteModal, setShowDeleteModal,
 }:PostFilterProps & Props): JSX.Element {
   return (
-    <div className="max-w-sm bg-white relative rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-      <div className={`absolute right-3 px-4 rounded top-3 text-white ${post.type === 'LOST' ? 'bg-red-600' : 'bg-green'}`}>{post.type}</div>
-      <img className="rounded-t-lg w-full" src={`${HOST}/images/media_object/${post.imageUrl}`} alt="" />
-      <div className="p-5">
-        {
+    <>
+      <div className="max-w-sm bg-white relative rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <div className={`absolute right-3 px-4 rounded top-3 text-white ${post.type === 'LOST' ? 'bg-red-600' : 'bg-green'}`}>{post.type}</div>
+        <img className="rounded-t-lg w-full" src={`${HOST}/images/media_object/${post.imageUrl}`} alt="" />
+        <div className="p-5">
+          {
           editView ? (
             <div>
               <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
@@ -65,21 +70,49 @@ export default function PostPresentational({
                 <p className="text-xs">{post.state ? 'State: 1' : 'State: 0'}</p>
               </>
             )
-        }
+          }
 
-        {
+          {
           isOwner && (
             <div className="mt-2 flex justify-end space-x-2">
               <button type="button" onClick={handleEditView} className="text-white bg-yellow-400 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
                 Edit
               </button>
-              <button type="button" onClick={handleDelete} className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+              <button type="button" onClick={() => setShowDeleteModal(true)} className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                 Delete
               </button>
             </div>
           )
         }
+        </div>
       </div>
-    </div>
+      <Modal
+        show={showDeleteModal}
+        size="md"
+        popup
+        onClose={() => setShowDeleteModal(false)}
+      >
+        <Modal.Header />
+        <Modal.Body className="text-center">
+          <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+            Are you sure you want to delete this product?
+          </h3>
+          <div className="flex justify-center gap-4">
+            <Button
+              color="red"
+              onClick={handleDelete}
+            >
+              Yes, I am sure
+            </Button>
+            <Button
+              color="alternative"
+              onClick={() => setShowDeleteModal(false)}
+            >
+              No, cancel
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+    </>
   );
 }

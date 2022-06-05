@@ -13,6 +13,7 @@ export default function Profile() : JSX.Element {
   const [showNoPosts, setShowNoPosts] = useState(false);
 
   useEffect(() => {
+    setPosts([]);
     if (token && user) {
       getPosts(token, `?owner.username=${user.username}`).then((response) => {
         if (response['hydra:totalItems'] > 0) {

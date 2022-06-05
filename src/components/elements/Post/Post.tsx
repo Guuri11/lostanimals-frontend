@@ -24,6 +24,7 @@ export default function Post({ post }:Props): JSX.Element {
   const [isOwner] = useState<boolean>(user?.['@id'] === post.owner['@id']);
   const [editView, setEditView] = useState(false);
   const [postUpdated, setPostUpdated] = useState<PostType|null>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const {
     register, handleSubmit,
@@ -44,12 +45,10 @@ export default function Post({ post }:Props): JSX.Element {
   const handleEditView = ():void => setEditView(!editView);
 
   const handleDelete = ():void => {
-    // eslint-disable-next-line no-restricted-globals
-    const ans = confirm('Are you sure you want to delete this post?');
-
-    if (ans && token && handleRefreshControl) {
+    if (token && handleRefreshControl) {
       deletePost(token, post['@id']).then((response) => {
         if (response === 204) {
+          setShowDeleteModal(false);
           handleRefreshControl();
         } else if (handleAlert) {
           handleAlert('Could not update the post', 'red');
@@ -68,6 +67,8 @@ export default function Post({ post }:Props): JSX.Element {
       register={register}
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
+      showDeleteModal={showDeleteModal}
+      setShowDeleteModal={setShowDeleteModal}
     />
   );
 }
