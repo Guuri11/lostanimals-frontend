@@ -20,6 +20,7 @@ export type PostFilterProps = {
       description?: FieldError | undefined;
       type?: FieldError | undefined;
       state?: FieldError | undefined;
+      image?: FieldError | undefined;
   };
   onSubmit: SubmitHandler<PostCreate>;
 }

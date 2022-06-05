@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  useForm, FieldError, SubmitHandler, UseFormHandleSubmit, UseFormRegister,
+  useForm, SubmitHandler, UseFormHandleSubmit, UseFormRegister,
 } from 'react-hook-form';
 import { useAppContext } from '../../../hooks/AppContext';
 import { deletePost, PostUpdate, updatePost } from '../../../services/post';
@@ -14,11 +14,6 @@ type Props = {
 export type PostFilterProps = {
   register: UseFormRegister<PostUpdate>;
   handleSubmit: UseFormHandleSubmit<PostUpdate>;
-  errors: {
-      description?: FieldError | undefined;
-      type?: FieldError | undefined;
-      state?: FieldError | undefined;
-  };
   onSubmit: SubmitHandler<PostUpdate>;
 }
 
@@ -31,7 +26,7 @@ export default function Post({ post }:Props): JSX.Element {
   const [postUpdated, setPostUpdated] = useState<PostType|null>(null);
 
   const {
-    register, handleSubmit, formState: { errors },
+    register, handleSubmit,
   } = useForm<PostUpdate>();
   const onSubmit: SubmitHandler<PostUpdate> = (data) => {
     if (token) {
@@ -72,7 +67,6 @@ export default function Post({ post }:Props): JSX.Element {
       handleEditView={handleEditView}
       register={register}
       handleSubmit={handleSubmit}
-      errors={errors}
       onSubmit={onSubmit}
     />
   );

@@ -13,22 +13,32 @@ export default function PostPresentational({
         <div>
           <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
             <div>
+              <span className="text-red-500">
+                {errors.image?.type === 'required' && 'Image required'}
+              </span>
               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" htmlFor="file_input">Upload animal image</label>
-              <input {...register('image')} className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" />
+              <input {...register('image', { required: true })} className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" />
             </div>
             <div>
+              <span className="text-red-500">
+                {errors.description?.type === 'required' && 'Description required'}
+                {errors.description?.type === 'max' && 'Max length is 255 characters'}
+              </span>
               <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Description</label>
-              <input {...register('description')} type="text" id="description" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+              <input {...register('description', { required: true, max: 255 })} type="text" id="description" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
             </div>
             <div>
+              <span className="text-red-500">
+                {errors.type?.type === 'required' && 'Type required'}
+              </span>
               <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Type</p>
               <div className="flex">
                 <div className="flex items-center mr-4">
-                  <input id="type-radio-found" {...register('type')} type="radio" value="FOUND" name="type" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                  <input id="type-radio-found" {...register('type', { required: true })} type="radio" value="FOUND" name="type" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                   <label htmlFor="type-radio" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">FOUND</label>
                 </div>
                 <div className="flex items-center mr-4">
-                  <input id="type-radio-lost" {...register('type')} type="radio" value="LOST" name="type" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                  <input id="type-radio-lost" {...register('type', { required: true })} type="radio" value="LOST" name="type" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                   <label htmlFor="type-radio" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">LOST</label>
                 </div>
               </div>

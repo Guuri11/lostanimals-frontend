@@ -14,7 +14,7 @@ type Props = {
 }
 
 export default function PostPresentational({
-  post, isOwner, editView, handleEditView, handleDelete, register, handleSubmit, errors, onSubmit,
+  post, isOwner, editView, handleEditView, handleDelete, register, handleSubmit, onSubmit,
 }:PostFilterProps & Props): JSX.Element {
   return (
     <div className="max-w-sm bg-white relative rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">

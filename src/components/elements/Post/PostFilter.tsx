@@ -23,12 +23,18 @@ export default function PostFilter({
           </div>
         </div>
         <div>
+          <span className="text-red-500">
+            {errors.radio?.type === 'min' && 'Min. radio distance is 0'}
+          </span>
+          <span className="text-red-500">
+            {errors.radio?.type === 'max' && 'Max. radio distance is 300'}
+          </span>
           <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
             Radio distance (
             {watch('radio') || 150}
             km)
           </p>
-          <input {...register('radio', { min: 0, max: 150 })} id="default-range" type="range" defaultValue="150" min="0" max="300" className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
+          <input {...register('radio', { min: 0, max: 300 })} id="default-range" type="range" defaultValue="150" min="0" max="300" className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
         </div>
         <div>
           <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Start date</p>

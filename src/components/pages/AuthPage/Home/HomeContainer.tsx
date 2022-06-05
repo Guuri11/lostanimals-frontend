@@ -54,8 +54,11 @@ export default function Home() : JSX.Element {
     if (data.type) {
       params += `&type=${data.type}`;
     }
-    setPosts([]);
-    setFilterParams(params);
+
+    if (params !== filterParams) {
+      setPosts([]);
+      setFilterParams(params);
+    }
   };
 
   useEffect(() => {
