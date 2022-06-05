@@ -7,7 +7,7 @@ export default function PostPresentational({
   register, handleSubmit, errors, onSubmit,
 }:PostFilterProps): JSX.Element {
   return (
-    <div className="max-w-sm bg-white relative rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+    <div className="max-w-sm h-fit bg-white relative rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
       <div className="p-5">
         <h3 className="text-center font-bold mb-3">Add a new Post</h3>
         <div>

@@ -22,7 +22,7 @@ export default function PostPresentational({
 }:PostFilterProps & Props): JSX.Element {
   return (
     <>
-      <div className="max-w-sm bg-white relative rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+      <div className="max-w-sm h-fit bg-white relative rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
         <div className={`absolute right-3 px-4 rounded top-3 text-white ${post.type === 'LOST' ? 'bg-red-600' : 'bg-green'}`}>{post.type}</div>
         <img className="rounded-t-lg w-full" src={`${HOST}/images/media_object/${post.imageUrl}`} alt="" />
         <div className="p-5">
@@ -63,7 +63,7 @@ export default function PostPresentational({
           )
             : (
               <>
-                <p className="mb-2 text-xl font-bold tracking-tight text-gray-900">{post.description}</p>
+                <p className="mb-2 text-xl font-bold tracking-tight text-gray-900 w-100">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores optio amet similique laudantium commodi id eveniet? Obcaecati voluptatum incidunt maiores, hic omnis at perferendis ducimus nulla voluptatem, ut, nesciunt harum?</p>
                 <p>{post.owner.username}</p>
                 <p className="text-xs">{post.created_at}</p>
                 <p className="text-xs">{`${post.latitude}, ${post.longitude}`}</p>
