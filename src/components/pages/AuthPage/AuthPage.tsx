@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { useAppContext } from '../../../hooks/AppContext';
 import { checkToken, getMe } from '../../../services/user';
 import Layout from '../../elements/Layout';
@@ -14,9 +15,7 @@ export default function AuthPage({ children }: Props) : JSX.Element | null {
   const [isValid, setIsValid] = useState(false);
   useEffect(() => {
     if (navigate) {
-      if (token === '') {
-        navigate('/login');
-      } else if (typeof token === 'string') {
+      if (typeof token === 'string' && token !== '') {
         checkToken(token).then((valid) => {
           getMe(token).then((me) => setIsValid(valid && me !== null));
         });
@@ -46,5 +45,9 @@ export default function AuthPage({ children }: Props) : JSX.Element | null {
       </Layout>
     );
   }
+  return (
+    <Navigate to="/login" replace />
+  );
+
   return null;
 }
