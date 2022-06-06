@@ -13,9 +13,12 @@ export default function AuthPage({ children }: Props) : JSX.Element | null {
     token, navigate, handleCoords, handleAlert,
   } = useAppContext();
   const [isValid, setIsValid] = useState(false);
+  const [redirectLogin, setRedirectLogin] = useState(false);
   useEffect(() => {
     if (navigate) {
-      if (typeof token === 'string' && token !== '') {
+      if (token === '') {
+        setRedirectLogin(true);
+      } else if (typeof token === 'string') {
         checkToken(token).then((valid) => {
           getMe(token).then((me) => setIsValid(valid && me !== null));
         });
@@ -38,6 +41,12 @@ export default function AuthPage({ children }: Props) : JSX.Element | null {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (redirectLogin) {
+    return (
+      <Navigate to="/login" replace />
+    );
+  }
+
   if (isValid && children) {
     return (
       <Layout>
@@ -45,9 +54,5 @@ export default function AuthPage({ children }: Props) : JSX.Element | null {
       </Layout>
     );
   }
-  return (
-    <Navigate to="/login" replace />
-  );
-
   return null;
 }
